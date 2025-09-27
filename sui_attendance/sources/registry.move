@@ -9,7 +9,6 @@ module 0x0::registry {
     const E_NOT_ADMIN: u64 = 1;
     const E_ISSUER_EXISTS: u64 = 2;
     const E_ISSUER_UNKNOWN: u64 = 3;
-    const E_ALREADY_REVOKED: u64 = 4;
 
     // Liste des émetteurs autorisés
     public struct Issuers has key, store {
@@ -23,29 +22,39 @@ module 0x0::registry {
         addr: address
     }
 
+public struct IssuerRemoved has copy, drop, store {
+    addr: address
+}
+
     // Initialise le registre des émetteurs
-    public entry fun init_registry(initial_admin: address, ctx: &mut TxContext, ) {
+    public entry fun init_registry(initial_admin: address, ctx: &mut TxContext) {
         let registry = Issuers {
             id: object::new(ctx),
             admins: vector::singleton(initial_admin),
             addrs: vector::empty<address>(),
         };
-        let sender = sender(ctx);
-        transfer::transfer(registry, sender);
+        let caller = sender(ctx);
+        transfer::transfer(registry, caller);
     }
 
-    // Ajoute une adresse d’émetteur autorisé
-    public fun add_issuer(reg: &mut Issuers, admin: address, new_issuer: address) {
-        assert!(contains(&reg.admins, &admin), E_NOT_ADMIN);
+    // Ajoute une adresse d’émetteur autorisé (vérifie l'admin via l'appelant)
+    public entry fun add_issuer(mut reg: Issuers, new_issuer: address, ctx: &mut TxContext) {
+        let caller = sender(ctx);
+        assert!(contains(&reg.admins, &caller), E_NOT_ADMIN);
         assert!(!contains(&reg.addrs, &new_issuer), E_ISSUER_EXISTS);
         vector::push_back(&mut reg.addrs, new_issuer);
         event::emit(IssuerAdded { addr: new_issuer });
+        transfer::transfer(reg, caller);
     }
 
-    // Supprime un émetteur
-    public fun remove_issuer(reg: &mut Issuers, admin: address, issuer: address) {
-        assert!(contains(&reg.admins, &admin), E_NOT_ADMIN);
+    // Supprime un émetteur (vérifie l'admin via l'appelant)
+    public entry fun remove_issuer(mut reg: Issuers, issuer: address, ctx: &mut TxContext) {
+        let caller = sender(ctx);
+        assert!(contains(&reg.admins, &caller), E_NOT_ADMIN);
+        assert!(contains(&reg.addrs, &issuer), E_ISSUER_UNKNOWN);
         remove(&mut reg.addrs, &issuer);
+        event::emit(IssuerRemoved { addr: issuer });
+        transfer::transfer(reg, caller);
     }
 
     // Fonction appelée par le module `diploma`

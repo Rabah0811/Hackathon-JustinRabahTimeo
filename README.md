@@ -1,49 +1,87 @@
-0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585
+# 🎓 Diploma NFT Registry
 
+## 🚀 Pitch / Description
+This project enables the creation and management of a decentralized diploma registry using NFTs on the Sui blockchain. Educational institutions can issue verifiable digital diplomas to students, ensuring authenticity and transparency.
 
-Acceder au site admin
-cd frontend
-python3 -m http.server 5500
+## 🏗️ Architecture Overview
+- **Sui Blockchain**: Underlying platform for smart contracts and transactions.
+- **Registry Module**: Manages issuers and diploma records.
+- **Diploma Module**: Handles minting of diploma NFTs.
+- **Client CLI**: Interface to interact with the blockchain and modules.
 
-http://localhost:5500/admin.html
+## ⚙️ Prerequisites
+- Install [Sui CLI](https://docs.sui.io/build/install) and ensure it is configured.
+- Rust environment for building and publishing modules.
+- Basic familiarity with command-line operations.
 
-Dans le TERMINAL A: n’importe ou
+## 🛠️ Setup Instructions
+
+### 1. Start Sui Node with Faucet
+```bash
 RUST_LOG="off,sui_node=info" sui start --with-faucet --force-regenesis
+```
 
-Dans le TERMINAL B: Hackaton
+### 2. Create and Switch to Local Environment
+```bash
 sui client new-env --alias local --rpc http://127.0.0.1:9000
 sui client switch --env local
-sui client active-env 
+sui client active-env
+```
 
+### 3. Verify Addresses and Faucet
+```bash
 sui client addresses
 sui client active-address
 sui client faucet
-sui client gas 
+sui client gas
+```
 
+### 4. Publish Modules
+```bash
+sui client publish --gas-budget 100000000
+```
 
+## 💡 Usage
+
+### Initialize Registry
+```bash
 sui client call \
-  --package 0xec0e3bc057495a35686512e0e202a4ffe9e5be666ce82a86048fd88e6cf899a7 \
+  --package <PACKAGE_ID_REGISTRY> \
   --module registry \
   --function init_registry \
-  --args 0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585
+  --args <ADMIN_ADDRESS>
+```
 
+### Add an Issuer
+```bash
 sui client call \
-  --package 0xec0e3bc057495a35686512e0e202a4ffe9e5be666ce82a86048fd88e6cf899a7 \
+  --package <PACKAGE_ID_REGISTRY> \
   --module registry \
   --function add_issuer \
-  --args <REGISTRY_OBJECT_ID> \
-        0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585 \
-        0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585
+  --args <REGISTRY_OBJECT_ID> <ISSUER_ADDRESS>
+```
 
-
+### Mint a Diploma
+```bash
 sui client call \
-  --package <NOUVEAU_PACKAGE_ID> \
+  --package <PACKAGE_ID_DIPLOMA> \
   --module diploma \
   --function mint_diploma_entry \
-  --args 0x527ed2f4fa4e9e4996856cc2c5e025aab14080ea6bb7066c80138ba99406eb2f \
-        0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585 \
-        0xf5fd046d366a371f22bd305cbcb9ead22f5bc33753b9236f96da9b3f328bc585 \
-        "0x68617368" \
-        "0x42616368656c6f72204353" \
-        "0x556e6976657273697479" \
-        2025
+  --args <REGISTRY_OBJECT_ID> \
+        <ISSUER_ADDRESS> \
+        <STUDENT_ADDRESS> \
+        "0x68617368" \                  # hash or identifier
+        "0x42616368656c6f72204353" \    # diploma type e.g. "Bachelor CS"
+        "0x556e6976657273697479" \      # institution e.g. "University"
+        2025                            # year
+```
+
+## 🎬 Demo
+*Screenshots and videos demonstrating the registry, issuer addition, and diploma minting will be added here.*
+
+## 👥 Team
+- Justin Pessia
+- Rabah [Last Name]
+- Timeo [Last Name]
+
+*Feel free to contribute and reach out for collaboration!*
