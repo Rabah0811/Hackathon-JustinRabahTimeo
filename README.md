@@ -113,6 +113,7 @@ sui client call \
   --function verify_student_diplomas \
   --args <STUDENT_ADDRESS>
 
+However, all of this is done on the web page and you just have to research someone with its adress.
 ## Demo
 *Screenshots and videos demonstrating the registry, issuer addition, and diploma minting will be added here.*
 
