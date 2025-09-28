@@ -117,9 +117,9 @@ sui client call \
   --function verify_student_diplomas \
   --args <STUDENT_ADDRESS>
 ```
-However, all of this is done on the web page and you just have to research someone with its adress.
+However, all of this is done on the web page and you just have to research someone with its adress:
 
-##Demo
+
 <img width="940" height="150" alt="Screenshot 2025-09-28 at 03 36 54" src="https://github.com/user-attachments/assets/c3c14f39-ea82-4260-93d8-46bfb03835a5" />
 
 
