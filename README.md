@@ -41,7 +41,7 @@ diploma-nft-registry/
 - Rust environment for building and publishing modules.
 - Basic familiarity with command-line operations.
 
-## Setup Instructions
+## Setup Instructions for local usage
 Once registry.move and diploma.move have been build with sui move build
 ### 1. Start Sui Node with Faucet
 ```bash
@@ -68,7 +68,7 @@ sui client gas
 sui client publish --gas-budget 100000000
 ```
 
-## Local usage
+## Usage
 
 ### Initialize Registry
 ```bash
