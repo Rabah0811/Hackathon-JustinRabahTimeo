@@ -20,31 +20,18 @@ This project enables the creation and management of a decentralized diploma regi
 
 ```bash
 Hackathon-JustinRabahTimeo/
-    Move.lock
-    Move.toml
     README.md
-    image.png
-    build/
-        sui_attendance/
-            BuildInfo.yaml
-            bytecode_modules/
-                diploma.mv
-                registry.mv
-            debug_info/
-                diploma.json
-                diploma.mvd
-                registry.json
-                registry.mvd
-            sources/
-                diploma.move
-                registry.move
-            tests/
-                sui_attendance_tests.move
-    sources/
-        diploma.move
-        registry.move
-    tests/
-        sui_attendance_tests.move
+    sui_attendance/
+        Move.lock
+        Move.toml
+        sources/
+            diploma.move
+            registry.move
+        tests/
+            sui_attendance_tests.move
+     frontend/
+           index.html
+
 
 ```
 
