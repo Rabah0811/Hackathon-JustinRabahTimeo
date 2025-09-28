@@ -19,22 +19,33 @@ This project enables the creation and management of a decentralized diploma regi
 ## Project Structure
 
 ```bash
-📦 diploma-nft-registry/
-├── 📜 Move.toml
-├── 📘 README.md
-├── 🔒 sui.lock
-├── ⚙️ .gitignore
-├── 🏗️ build/
-├── 📂 sources/
-│   ├── 🗂️ registry.move
-│   ├── 🎓 diploma.move
-│   └── 🔍 verificateur.move
-├── 🧪 tests/
-│   └── 🧾 diploma_test.move
-└── 📜 scripts/
-    ├── 🚀 publish.sh
-    ├── 🪪 mint_diploma.sh
-    └── ✅ verify_diploma.sh
+Hackathon-JustinRabahTimeo/
+    Move.lock
+    Move.toml
+    README.md
+    image.png
+    build/
+        sui_attendance/
+            BuildInfo.yaml
+            bytecode_modules/
+                diploma.mv
+                registry.mv
+            debug_info/
+                diploma.json
+                diploma.mvd
+                registry.json
+                registry.mvd
+            sources/
+                diploma.move
+                registry.move
+            tests/
+                sui_attendance_tests.move
+    sources/
+        diploma.move
+        registry.move
+    tests/
+        sui_attendance_tests.move
+
 ```
 
 
