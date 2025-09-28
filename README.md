@@ -43,12 +43,12 @@ diploma-nft-registry/
 
 ## Setup Instructions for local usage
 Once registry.move and diploma.move have been build with sui move build
-### 1. Start Sui Node with Faucet
+### 1. Start Sui Node with Faucet on TERMINAL A
 ```bash
 RUST_LOG="off,sui_node=info" sui start --with-faucet --force-regenesis
 ```
-
-### 2. Create and Switch to Local Environment
+then leave terminal A running
+### 2. Create and Switch to Local Environment on TERMINAL B
 ```bash
 sui client new-env --alias local --rpc http://127.0.0.1:9000
 sui client switch --env local
