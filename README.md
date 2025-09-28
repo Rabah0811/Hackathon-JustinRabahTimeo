@@ -16,6 +16,26 @@ This project enables the creation and management of a decentralized diploma regi
 - **Diploma Module**: Handles minting of diploma NFTs.
 - **Client CLI**: Interface to interact with the blockchain and modules.
 
+## Project Structure
+diploma-nft-registry/
+├── Move.toml
+├── README.md
+├── sui.lock
+├── build/
+├── sources/
+│   ├── registry.move
+│   ├── diploma.move
+│   └── verificateur.move
+├── tests/
+│   └── diploma_test.move
+├── scripts/
+│   ├── publish.sh
+│   ├── mint_diploma.sh
+│   └── verify_diploma.sh
+└── .gitignore
+
+
+
 ## Prerequisites
 - Install [Sui CLI](https://docs.sui.io/build/install) and ensure it is configured.
 - Rust environment for building and publishing modules.
