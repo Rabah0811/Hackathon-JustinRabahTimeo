@@ -116,7 +116,7 @@ sui client call \
   --module verificateur \
   --function verify_student_diplomas \
   --args <STUDENT_ADDRESS>
-
+```
 However, all of this is done on the web page and you just have to research someone with its adress.
 
 ##Demo
