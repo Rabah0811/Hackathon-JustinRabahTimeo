@@ -43,6 +43,29 @@ module sui_attendance::diploma {
         d.recipient == owner
     }
 
+    public fun mint_diploma(
+        reg: &Issuers,
+        issuer: address,
+        recipient: address,
+        degree_hash: vector<u8>,
+        metadata: DiplomaMetadata,
+        ctx: &mut TxContext
+    ) {
+        assert!(registry::is_authorized_issuer(reg, &issuer), E_ISSUER_UNKNOWN);
+
+        let diploma = Diploma {
+            id: object::new(ctx),
+            issuer,
+            recipient,
+            degree_hash,
+            metadata,
+            revoked: false,
+        };
+
+        transfer::transfer(diploma, recipient);
+        event::emit(DiplomaMinted { issuer, recipient });
+    }
+
     public entry fun mint_diploma_entry(//if metadata is not existing
         reg: &MintCap,
         issuer: address,
