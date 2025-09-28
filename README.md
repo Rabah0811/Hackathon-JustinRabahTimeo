@@ -35,7 +35,7 @@ This project enables the creation and management of a decentralized diploma regi
     ├── 🚀 publish.sh
     ├── 🪪 mint_diploma.sh
     └── ✅ verify_diploma.sh
-
+```
 
 
 
