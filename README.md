@@ -17,6 +17,8 @@ This project enables the creation and management of a decentralized diploma regi
 - **Client CLI**: Interface to interact with the blockchain and modules.
 
 ## Project Structure
+
+```bash
 📦 diploma-nft-registry/
 ├── 📜 Move.toml
 ├── 📘 README.md
@@ -33,6 +35,7 @@ This project enables the creation and management of a decentralized diploma regi
     ├── 🚀 publish.sh
     ├── 🪪 mint_diploma.sh
     └── ✅ verify_diploma.sh
+
 
 
 
