@@ -75,6 +75,16 @@ sui client call \
         "0x556e6976657273697479" \      # institution e.g. "University"
         2025                            # year
 ```
+### Verify a Student's Diplomas
+
+Employers can verify diplomas by calling a function that checks whether a student owns one or more diploma NFTs issued by trusted institutions.
+
+```bash
+sui client call \
+  --package <PACKAGE_ID> \
+  --module verificateur \
+  --function verify_student_diplomas \
+  --args <STUDENT_ADDRESS>
 
 ## Demo
 *Screenshots and videos demonstrating the registry, issuer addition, and diploma minting will be added here.*
