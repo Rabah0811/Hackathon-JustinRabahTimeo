@@ -48,7 +48,7 @@ sui client gas
 sui client publish --gas-budget 100000000
 ```
 
-## Usage
+## Local usage
 
 ### Initialize Registry
 ```bash
