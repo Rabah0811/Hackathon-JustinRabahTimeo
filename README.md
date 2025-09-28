@@ -3,6 +3,13 @@
 ## Pitch / Description
 This project enables the creation and management of a decentralized diploma registry using NFTs on the Sui blockchain. Educational institutions can issue verifiable digital diplomas to students, ensuring authenticity and transparency.
 
+## Security & Authenticity
+
+- Only certified institutions (registered issuers) can mint diplomas.
+- Each diploma is an immutable NFT tied to the student's wallet.
+- Diplomas cannot be altered or revoked once issued.
+- Employer verification ensures the diploma comes from a trusted issuer.
+
 ## Architecture Overview
 - **Sui Blockchain**: Underlying platform for smart contracts and transactions.
 - **Registry Module**: Manages issuers and diploma records.
@@ -88,6 +95,16 @@ sui client call \
 
 ## Demo
 *Screenshots and videos demonstrating the registry, issuer addition, and diploma minting will be added here.*
+
+
+## Future Improvements
+
+- Add expiration/validity metadata to diplomas.
+- Include student signatures for extra validation.
+- Web frontend for universities and employers.
+- IPFS integration for image storage.
+- Smart contract versioning and upgrade support.
+
 
 ## Team
 - Justin Pessia
