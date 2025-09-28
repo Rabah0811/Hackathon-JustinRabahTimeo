@@ -1,4 +1,4 @@
-module 0x0::registry {
+module sui_attendance::registry {
     use std::vector;
     use sui::object::UID;
     use sui::object;
@@ -6,15 +6,17 @@ module 0x0::registry {
     use sui::transfer;
     use sui::event;
 
-    const E_NOT_ADMIN: u64 = 1;
-    const E_ISSUER_EXISTS: u64 = 2;
-    const E_ISSUER_UNKNOWN: u64 = 3;
+    const E_ISSUER_EXISTS: u64 = 1;
+    const E_ISSUER_UNKNOWN: u64 = 2;
 
     // Liste des émetteurs autorisés
     public struct Issuers has key, store {
         id: UID,
-        admins: vector<address>,
         addrs: vector<address>,
+    }
+
+    public struct MintCap has key {
+        id: UID,
     }
 
     // Événements
@@ -22,39 +24,34 @@ module 0x0::registry {
         addr: address
     }
 
-public struct IssuerRemoved has copy, drop, store {
-    addr: address
-}
+    public struct IssuerRemoved has copy, drop, store {
+        addr: address
+    }
 
     // Initialise le registre des émetteurs
-    public entry fun init_registry(initial_admin: address, ctx: &mut TxContext) {
+    fun init(ctx: &mut TxContext) {
         let registry = Issuers {
             id: object::new(ctx),
-            admins: vector::singleton(initial_admin),
             addrs: vector::empty<address>(),
         };
-        let caller = sender(ctx);
+        let caller = tx_context::sender(ctx);
         transfer::transfer(registry, caller);
     }
 
     // Ajoute une adresse d’émetteur autorisé (vérifie l'admin via l'appelant)
-    public entry fun add_issuer(mut reg: Issuers, new_issuer: address, ctx: &mut TxContext) {
-        let caller = sender(ctx);
-        assert!(contains(&reg.admins, &caller), E_NOT_ADMIN);
+    public entry fun add_issuer(reg: &mut Issuers, new_issuer: address, ctx: &mut TxContext) {
+        let mint_cap = MintCap { id: object::new(ctx)};
         assert!(!contains(&reg.addrs, &new_issuer), E_ISSUER_EXISTS);
         vector::push_back(&mut reg.addrs, new_issuer);
         event::emit(IssuerAdded { addr: new_issuer });
-        transfer::transfer(reg, caller);
+        transfer::transfer(mint_cap, new_issuer);
     }
 
     // Supprime un émetteur (vérifie l'admin via l'appelant)
-    public entry fun remove_issuer(mut reg: Issuers, issuer: address, ctx: &mut TxContext) {
-        let caller = sender(ctx);
-        assert!(contains(&reg.admins, &caller), E_NOT_ADMIN);
+    public entry fun remove_issuer(reg: &mut Issuers, issuer: address, ctx: &mut TxContext) {
         assert!(contains(&reg.addrs, &issuer), E_ISSUER_UNKNOWN);
         remove(&mut reg.addrs, &issuer);
         event::emit(IssuerRemoved { addr: issuer });
-        transfer::transfer(reg, caller);
     }
 
     // Fonction appelée par le module `diploma`
